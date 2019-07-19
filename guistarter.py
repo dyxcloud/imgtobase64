@@ -59,6 +59,8 @@ class Application(Application_ui):
 
     def doupload(self, event=None):
         local_file_path = filedialog.askopenfilename(title='上传', filetypes=[('image', '*.jpg;*.jpeg;*.png;*.gif;*.ico;*.bmp;*.webp'), ('All Files', '*')])
+        if local_file_path=="":
+            return
         self.copytext.set("making...")
         checkdata = self.Combo1.get()
         checkindex = self.Combo1List.index(checkdata)
