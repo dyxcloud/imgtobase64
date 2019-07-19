@@ -1,20 +1,16 @@
-import os
-from tkinter import *
+from tkinter import Tk
+from tkinter import StringVar
 from tkinter import scrolledtext
 from tkinter import filedialog
 from tkinter.font import Font
-from tkinter.messagebox import *
-from tkinter.ttk import *
+from tkinter import ttk
 
 import mytool
 
-#import tkinter.filedialog as tkFileDialog
-#import tkinter.simpledialog as tkSimpleDialog    #askstring()
-
-class Application_ui(Frame):
+class Application_ui(ttk.Frame):
     #这个类仅实现界面生成功能，具体事件处理代码在子类Application中。
     def __init__(self, master=None):
-        Frame.__init__(self, master)
+        ttk.Frame.__init__(self, master)
         self.master.title('图片转Base64')
         self.master.geometry('406x150')
         self.createWidgets()
@@ -22,35 +18,35 @@ class Application_ui(Frame):
     def createWidgets(self):
         self.top = self.winfo_toplevel()
 
-        self.style = Style()
+        self.style = ttk.Style()
 
         self.data_url = StringVar(value='')
-        self.Text1 = Entry(self.top, textvariable=self.data_url, font=('微软雅黑',9))
+        self.Text1 = ttk.Entry(self.top, textvariable=self.data_url, font=('微软雅黑',9))
         self.Text1.place(relx=0.040, rely=0.070, relwidth=0.500, relheight=0.180)
 
         self.style.configure('Command1.TButton',font=('微软雅黑',9))
-        self.Command1 = Button(self.top, text='上传', command=self.doupload, style='Command1.TButton')
+        self.Command1 = ttk.Button(self.top, text='上传', command=self.doupload, style='Command1.TButton')
         self.Command1.place(relx=0.571, rely=0.070, relwidth=0.120, relheight=0.180)
 
         self.style.configure('Command2.TButton',font=('微软雅黑',9))
-        self.Command2 = Button(self.top, text='转换', command=self.dotrans, style='Command2.TButton')
+        self.Command2 = ttk.Button(self.top, text='转换', command=self.dotrans, style='Command2.TButton')
         self.Command2.place(relx=0.730, rely=0.070, relwidth=0.230, relheight=0.180)
 
         #下拉
         self.Combo1List = ['不压缩','压缩至webp','压缩至png']
-        self.Combo1 = Combobox(self.top,state="readonly", values=self.Combo1List, font=('微软雅黑',9))
+        self.Combo1 = ttk.Combobox(self.top,state="readonly", values=self.Combo1List, font=('微软雅黑',9))
         self.Combo1.current(0)
         self.Combo1.place(relx=0.040, rely=0.300, relwidth=0.400, relheight=0.150)
 
         # 选择框
         self.auto_compress = StringVar(value='1')
         self.style.configure('Check1.TCheckbutton',font=('微软雅黑',9))
-        self.Check1 = Checkbutton(self.top, text='小于60k不压缩', variable=self.auto_compress, style='Check1.TCheckbutton')
+        self.Check1 = ttk.Checkbutton(self.top, text='小于60k不压缩', variable=self.auto_compress, style='Check1.TCheckbutton')
         self.Check1.place(relx=0.480, rely=0.300, relwidth=0.400, relheight=0.150)
 
         self.copytext = StringVar(value='点击复制')
         self.style.configure('Command2.TButton',font=('微软雅黑',9))
-        self.Command3 = Button(self.top, textvariable =self.copytext, command=self.docopy, style='Command3.TButton')
+        self.Command3 = ttk.Button(self.top, textvariable =self.copytext, command=self.docopy, style='Command3.TButton')
         self.Command3.place(relx=0.040, rely=0.500, relwidth=0.920, relheight=0.430)
 
 
