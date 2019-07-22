@@ -63,8 +63,7 @@ def _topng(source, result):
     os.system(commond)
 
 if __name__ == "__main__":
-    s = r"D:\Download\timg.png"
-    r = r"D:\Download\timgnew.png"
-    # _topng(s,r)
-    commond=".\\lib\\convert.exe  \"{}\" \"{}\"".format(s,r)
-    print(commond)
+    s = r"D:\Download\TIM截图20190722095713.png"
+    r = r"D:\Download\TIM截图20190722095713111.png"
+    compression(s,r,True)
+    print()
