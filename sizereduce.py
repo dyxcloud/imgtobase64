@@ -63,7 +63,7 @@ def _topng(source, result):
     os.system(commond)
 
 if __name__ == "__main__":
-    s = r"D:\Download\TIM截图20190722095713.png"
-    r = r"D:\Download\TIM截图20190722095713111.png"
-    compression(s,r,True)
+    s = "D:/Download/59390c8aNf12b52ac.bmp"
+    r = "D:/Download/qwe.png"
+    _convert(s,r)
     print()

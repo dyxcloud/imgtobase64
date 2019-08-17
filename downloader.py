@@ -2,16 +2,9 @@ import re
 import urllib.request
 
 import mytool
+import imagemapping
 
-content_types = {
-    'image/jpeg':'.jpg',
-    'application/x-jpg':'.jpg',
-    'image/gif':'.gif',
-    'image/png':'.png',
-    'application/x-png':'.png',
-    'image/x-icon':'.ico',
-    'application/x-ico':'.ico'
-}
+
 
 def _get_name_from_url(url,contenttype):
     #文件名
@@ -21,10 +14,10 @@ def _get_name_from_url(url,contenttype):
     # name = url[:end]
     name = name.rpartition("/")[2]
     # 根据content type 判断文件类型
-    if contenttype in content_types:
-        ex = content_types[contenttype]
+    if contenttype in imagemapping.content_types:
+        ex = imagemapping.content_types[contenttype]
     else:
-        for type in set(content_types.values()):
+        for type in set(imagemapping.content_types.values()):
             if type in url:
                 ex = type
                 break
@@ -56,5 +49,5 @@ def download_img(img_url):
 if __name__ == "__main__":
     name = _get_name_from_url("https://upload-images.jianshu.io/upload_images/5831473-8898ffb67b096b56.png","")
     print(name)
-    # print(content_types.values)
+    # print(imagemapping.content_types.values)
     

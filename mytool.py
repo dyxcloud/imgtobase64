@@ -4,19 +4,14 @@ from base64 import b64encode
 
 import sizereduce
 import downloader
+import imagemapping
 
 psworkspace = r"C:/WorkSpace/photoshop/"
 psresult = psworkspace + "result/"
 #初始化工作目录
 if not os.path.exists(psresult):
     os.mkdir(psresult)
-base64headers = {
-    '.gif': "data:image/gif;base64,",
-    '.png': "data:image/png;base64,",
-    '.jpg': "data:image/jpeg;base64,",
-    '.ico': "data:image/x-icon;base64,",
-    '.webp': "data:image/webp;base64,"
-}
+
 
 def filename_change(filename,ex):
     '''更改后缀名,ex=png'''
@@ -36,7 +31,7 @@ def dobase64(filename):
 def _base64_getheader(filename):
     '''获取base64头'''
     ex = os.path.splitext(filename)[1]
-    return base64headers[ex]
+    return imagemapping.base64headers[ex]
 
 
 def work_url(url,index,ifauto):

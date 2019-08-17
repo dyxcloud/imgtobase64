@@ -6,6 +6,7 @@ from tkinter.font import Font
 from tkinter import ttk
 
 import mytool
+import imagemapping
 
 class Application_ui(ttk.Frame):
     #这个类仅实现界面生成功能，具体事件处理代码在子类Application中。
@@ -58,7 +59,7 @@ class Application(Application_ui):
     result = ""
 
     def doupload(self, event=None):
-        local_file_path = filedialog.askopenfilename(title='上传', filetypes=[('image', '*.jpg;*.jpeg;*.png;*.gif;*.ico;*.bmp;*.webp'), ('All Files', '*')])
+        local_file_path = filedialog.askopenfilename(title='上传', filetypes=[('image', imagemapping.selectfiletypes), ('All Files', '*')])
         if local_file_path=="":
             return
         self.copytext.set("making...")
