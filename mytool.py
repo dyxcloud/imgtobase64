@@ -92,5 +92,6 @@ def work_file(source_path,index,ifauto):
 4. gui
 '''
 if __name__ == "__main__":
-    re = work_url("https://images2017.cnblogs.com/blog/828214/201710/828214-20171007083032318-501050226.png")
-    print(len(re))
+    result,show = work_url("https://hustcat.github.io/assets/GPU/cpu_vs_gpu_00.png",2,False)
+    print(result)
+    print(show)
