@@ -1,4 +1,5 @@
 import os
+from subprocess import run
 
 import mytool
 import imagemapping
@@ -20,15 +21,17 @@ def compression(source, result,is_to_png = False):
 
 def _towebp(source, result):
     if os.path.splitext(source)[1]==".gif":
-        commond=".\\lib\\gif2webp.exe -mixed -q 30 -m 6 -mt \"{}\" -o \"{}\"".format(source,result)
+        command=".\\lib\\gif2webp.exe -mixed -q 30 -m 6 -mt \"{}\" -o \"{}\"".format(source,result)
     else:
-        commond = ".\\lib\\cwebp.exe -q 30 -m 6 -mt -size 70000 \"{}\" -o \"{}\"".format(source,result)
-        # commond = "cwebp.exe -q 30 -m 6 -mt {} -o {}".format(source,result)
-    os.system(commond)
+        command = ".\\lib\\cwebp.exe -q 30 -m 6 -mt -size 70000 \"{}\" -o \"{}\"".format(source,result)
+        # command = "cwebp.exe -q 30 -m 6 -mt {} -o {}".format(source,result)
+    # os.system(command)
+    run(command,shell=True)
 
 def _convert(source):
-    commond=".\\lib\\nconvert.exe -out png  \"{}\"".format(source)
-    os.system(commond)
+    command=".\\lib\\nconvert.exe -out png  \"{}\"".format(source)
+    # os.system(command)
+    run(command,shell=True)
     #如果source后缀为png, 则结果为原文件名_1.png
     if source.endswith(".png"):
         result = source[0:-4]+"_1.png"
@@ -40,9 +43,9 @@ def _convert(source):
 
 def _topng(source, result):
     #使用pngquant转换,图源只支持png
-    if os.path.splitext(source)[1]==".png":
-        commond=".\\lib\\pngquant.exe --force --strip --ordered --speed=1 --quality=20-60 \"{}\" -o \"{}\"".format(source,result)
-    os.system(commond)
+    command=".\\lib\\pngquant.exe --force --strip --ordered --speed=1 --quality=20-60 \"{}\" -o \"{}\"".format(source,result)
+    # os.system(command)
+    run(command,shell=True)
 
 
 def _is_png_with_stream(file):
@@ -56,6 +59,8 @@ def _is_png_with_stream(file):
 
 
 if __name__ == "__main__":
-    s = "D:/Download/v2-105ac90dba748dd330afa4497ebee919_t.png"
+    s = "D:/Download/PLUM96.png"
+    d = s+".webp"
     #_convert(s)
-    print(_is_png_with_stream(s))
+    #print(_is_png_with_stream(s))
+    _towebp(s,d)
