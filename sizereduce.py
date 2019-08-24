@@ -59,8 +59,8 @@ def _is_png_with_stream(file):
 
 
 if __name__ == "__main__":
-    s = "D:/Download/PLUM96.png"
+    s = "D:/Download/qwe.svg"
     d = s+".webp"
     #_convert(s)
     #print(_is_png_with_stream(s))
-    _towebp(s,d)
+    _convert(s)
