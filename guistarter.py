@@ -1,9 +1,11 @@
+import traceback
 from tkinter import Tk
 from tkinter import StringVar
 from tkinter import scrolledtext
 from tkinter import filedialog
 from tkinter.font import Font
 from tkinter import ttk
+from tkinter import messagebox
 
 import mytool
 import imagemapping
@@ -59,34 +61,40 @@ class Application(Application_ui):
     result = ""
 
     def doupload(self, event=None):
-        local_file_path = filedialog.askopenfilename(title='上传', filetypes=[('image', imagemapping.selectfiletypes), ('All Files', '*')])
-        if local_file_path=="":
-            return
-        self.copytext.set("making...")
-        checkdata = self.Combo1.get()
-        checkindex = self.Combo1List.index(checkdata)
-        ifauto = int(self.auto_compress.get())
+        try:
+            local_file_path = filedialog.askopenfilename(title='上传', filetypes=[('image', imagemapping.selectfiletypes), ('All Files', '*')])
+            if local_file_path=="":
+                return
+            self.copytext.set("making...")
+            checkdata = self.Combo1.get()
+            checkindex = self.Combo1List.index(checkdata)
+            ifauto = int(self.auto_compress.get())
 
-        self.result,showlen = mytool.work_file(local_file_path,checkindex,ifauto)
-        if len(self.result)>50:
-            addToClipBoard(self.result)
-            self.copytext.set("点击复制, "+showlen)
-        else:
-            self.copytext.set("fail!")
+            self.result,showlen = mytool.work_file(local_file_path,checkindex,ifauto)
+            if len(self.result)>50:
+                addToClipBoard(self.result)
+                self.copytext.set("点击复制, "+showlen)
+            else:
+                self.copytext.set("fail!")
+        except:
+            messagebox.showinfo(title='error',message= traceback.format_exc())
 
     def dotrans(self, event=None):
-        self.copytext.set("making...")
-        dataurl = self.data_url.get()
-        checkdata = self.Combo1.get()
-        checkindex = self.Combo1List.index(checkdata)
-        ifauto = int(self.auto_compress.get())
+        try:
+            self.copytext.set("making...")
+            dataurl = self.data_url.get()
+            checkdata = self.Combo1.get()
+            checkindex = self.Combo1List.index(checkdata)
+            ifauto = int(self.auto_compress.get())
 
-        self.result,showlen = mytool.work_url(dataurl,checkindex,ifauto)
-        if len(self.result)>50:
-            addToClipBoard(self.result)
-            self.copytext.set("点击复制, "+showlen)
-        else:
-            self.copytext.set("fail!")
+            self.result,showlen = mytool.work_url(dataurl,checkindex,ifauto)
+            if len(self.result)>50:
+                addToClipBoard(self.result)
+                self.copytext.set("点击复制, "+showlen)
+            else:
+                self.copytext.set("fail!")
+        except:
+            messagebox.showinfo(title='error',message= traceback.format_exc())
     
     def docopy(self, even=None):
         addToClipBoard(self.result)
@@ -105,4 +113,4 @@ def addToClipBoard(text):
 if __name__ == "__main__":
     top = Tk()
     Application(top).mainloop()
-    top.destroy()
+    # top.destroy()
