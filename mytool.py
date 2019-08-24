@@ -24,6 +24,8 @@ def dobase64_with_bytes(bytes,filename):
 
 def dobase64(filename):
     '''本地图片转base64'''
+    if not os.path.isfile(filename):
+        raise FileNotFoundError("转base64时文件不存在"+filename)
     with open(filename, "rb") as f:  # 转为二进制格式
         data = b64encode(f.read())  # 使用base64进行加密
         return _base64_getheader(filename)+data.decode()
