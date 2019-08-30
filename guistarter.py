@@ -39,13 +39,18 @@ class Application_ui(ttk.Frame):
         self.Combo1List = ['不压缩','压缩至webp','压缩至png']
         self.Combo1 = ttk.Combobox(self.top,state="readonly", values=self.Combo1List, font=('微软雅黑',9))
         self.Combo1.current(0)
-        self.Combo1.place(relx=0.040, rely=0.300, relwidth=0.400, relheight=0.150)
+        self.Combo1.place(relx=0.040, rely=0.300, relwidth=0.350, relheight=0.150)
 
         # 选择框
         self.auto_compress = StringVar(value='1')
         self.style.configure('Check1.TCheckbutton',font=('微软雅黑',9))
         self.Check1 = ttk.Checkbutton(self.top, text='小于60k不压缩', variable=self.auto_compress, style='Check1.TCheckbutton')
-        self.Check1.place(relx=0.480, rely=0.300, relwidth=0.400, relheight=0.150)
+        self.Check1.place(relx=0.420, rely=0.300, relwidth=0.300, relheight=0.150)
+
+        self.with_md = StringVar(value='1')
+        self.style.configure('Check1.TCheckbutton',font=('微软雅黑',9))
+        self.Check1 = ttk.Checkbutton(self.top, text='md格式', variable=self.with_md, style='Check1.TCheckbutton')
+        self.Check1.place(relx=0.760, rely=0.300, relwidth=0.200, relheight=0.150)
 
         self.copytext = StringVar(value='点击复制')
         self.style.configure('Command2.TButton',font=('微软雅黑',9))
@@ -69,8 +74,9 @@ class Application(Application_ui):
             checkdata = self.Combo1.get()
             checkindex = self.Combo1List.index(checkdata)
             ifauto = int(self.auto_compress.get())
+            with_md = int(self.with_md.get())
 
-            self.result,showlen = mytool.work_file(local_file_path,checkindex,ifauto)
+            self.result,showlen = mytool.work_file(local_file_path,checkindex,ifauto,with_md)
             if len(self.result)>50:
                 addToClipBoard(self.result)
                 self.copytext.set("点击复制, "+showlen)
@@ -86,8 +92,12 @@ class Application(Application_ui):
             checkdata = self.Combo1.get()
             checkindex = self.Combo1List.index(checkdata)
             ifauto = int(self.auto_compress.get())
+            with_md = int(self.with_md.get())
 
-            self.result,showlen = mytool.work_url(dataurl,checkindex,ifauto)
+            if len(dataurl)==0:
+                return
+
+            self.result,showlen = mytool.work_url(dataurl,checkindex,ifauto,with_md)
             if len(self.result)>50:
                 addToClipBoard(self.result)
                 self.copytext.set("点击复制, "+showlen)

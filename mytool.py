@@ -35,8 +35,16 @@ def _base64_getheader(filename):
     ex = os.path.splitext(filename)[1]
     return imagemapping.base64headers[ex]
 
+def _with_md(result_line,imgname,url=None):
+    '''为base64结果添加md格式'''
+    if url is None:
+        pass
+        return "![{}]({})".format(imgname,result_line)
+    else:
+        return "[![{}]({})]({})".format(imgname,result_line,url)
 
-def work_url(url,index,ifauto):
+
+def work_url(url,index=0,ifauto=1,with_md=0):
     '''0不压缩,1webp,2png'''
     response,imgname = downloader.get_response_imgname(url)
     bytes = response.read()
@@ -45,7 +53,7 @@ def work_url(url,index,ifauto):
         index = 0
     if index==0:
         result_line = dobase64_with_bytes(bytes,imgname)
-        showlen = "nochange {}k".format(s,s)
+        showlen = "nochange {}k".format(s)
     else:
         source_path = psworkspace+imgname
         downloader.download_by_bytes(bytes,source_path)
@@ -60,9 +68,11 @@ def work_url(url,index,ifauto):
         showlen = "img_size {}k to {}k".format(s,r)
         os.remove(source_path)
         os.remove(result_path)
+    if with_md:
+        result_line = _with_md(result_line,imgname,url)
     return result_line,showlen
 
-def work_file(source_path,index,ifauto):
+def work_file(source_path,index=0,ifauto=1,with_md=0):
     '''0不压缩,1webp,2png'''
     imgname = os.path.basename(source_path)
     s = "{:.2f}".format(os.path.getsize(source_path)/1024.0)
@@ -70,7 +80,7 @@ def work_file(source_path,index,ifauto):
         index = 0
     if index==0:
         result_line = dobase64(source_path)
-        showlen = "nochange {}k".format(s,s)
+        showlen = "nochange {}k".format(s)
     else:
         is_to_png = index==2
         if is_to_png:
@@ -82,6 +92,8 @@ def work_file(source_path,index,ifauto):
         r = "{:.2f}".format(os.path.getsize(result_path)/1024.0)
         showlen = "img_size {}k to {}k".format(s,r)
         os.remove(result_path)
+    if with_md:
+        result_line = _with_md(result_line,imgname)
     return result_line,showlen
 
 
