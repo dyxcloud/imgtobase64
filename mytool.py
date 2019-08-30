@@ -6,11 +6,11 @@ import sizereduce
 import downloader
 import imagemapping
 
-psworkspace = r"C:/WorkSpace/photoshop/"
+psworkspace = r"./wowrkspace/"
 psresult = psworkspace + "result/"
 #初始化工作目录
 if not os.path.exists(psresult):
-    os.mkdir(psresult)
+    os.makedirs(psresult)
 
 
 def filename_change(filename,ex):
@@ -106,6 +106,7 @@ def work_file(source_path,index=0,ifauto=1,with_md=0):
 4. gui
 '''
 if __name__ == "__main__":
-    result,show = work_url("https://hustcat.github.io/assets/GPU/cpu_vs_gpu_00.png",2,False)
-    print(result)
-    print(show)
+    pass
+    # result,show = work_url("https://hustcat.github.io/assets/GPU/cpu_vs_gpu_00.png",2,False)
+    # print(result)
+    # print(show)
