@@ -14,6 +14,11 @@ imgtobase64.exe启动程序
 
 
 
+下载:
+[imgtobase64_v0.4_windows.zip](https://github.com/dyxcloud/imgtobase64/releases/download/0.4/imgtobase64_v0.4_windows.zip)
+
+
+
 支持的输入格式:
 
 .jpg;.jpeg;.png;.gif;.ico;.bmp;.webp;.tif;.tiff;.svg
