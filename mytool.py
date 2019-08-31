@@ -1,4 +1,6 @@
 import os
+import shutil
+import time
 
 from base64 import b64encode
 
@@ -59,7 +61,16 @@ def work_url(url,index=0,ifauto=1,with_md=0):
         downloader.download_by_bytes(bytes,source_path)
         is_to_png = index==2
         if is_to_png:
-            result_path = psresult+filename_change(imgname,"png")
+            #先判断source路径是否是acsii
+            is_ascii = all(ord(c) < 128 for c in source_path)
+            if not is_ascii:
+                new_source = psworkspace+str(int(time.time()))+"temp.png"
+                shutil.copy(source_path,new_source)
+                os.remove(source_path)
+                source_path = new_source
+                result_path = psresult+str(int(time.time()))+"temp.png"
+            else:
+                result_path = psresult+filename_change(imgname,"png")
         else:
             result_path = psresult+filename_change(imgname,"webp")
         sizereduce.compression(source_path,result_path,is_to_png)
@@ -84,7 +95,15 @@ def work_file(source_path,index=0,ifauto=1,with_md=0):
     else:
         is_to_png = index==2
         if is_to_png:
-            result_path = psresult+filename_change(imgname,"png")
+            #先判断source路径是否是acsii
+            is_ascii = all(ord(c) < 128 for c in source_path)
+            if not is_ascii:
+                new_source = psworkspace+str(int(time.time()))+"temp.png"
+                shutil.copy(source_path,new_source)
+                source_path = new_source
+                result_path = psresult+str(int(time.time()))+"temp.png"
+            else:
+                result_path = psresult+filename_change(imgname,"png")
         else:
             result_path = psresult+filename_change(imgname,"webp")
         sizereduce.compression(source_path,result_path,is_to_png)
@@ -92,6 +111,8 @@ def work_file(source_path,index=0,ifauto=1,with_md=0):
         r = "{:.2f}".format(os.path.getsize(result_path)/1024.0)
         showlen = "img_size {}k to {}k".format(s,r)
         os.remove(result_path)
+        if is_to_png and not is_ascii:
+            os.remove(source_path)
     if with_md:
         result_line = _with_md(result_line,imgname)
     return result_line,showlen

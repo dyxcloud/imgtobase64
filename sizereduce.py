@@ -42,7 +42,7 @@ def _convert(source):
     return result
 
 def _topng(source, result):
-    #使用pngquant转换,图源只支持png
+    #使用pngquant转换,图源只支持png 工具不支持中文文件名与路径
     command=".\\lib\\pngquant.exe --force --strip --ordered --speed=1 --quality=20-60 \"{}\" -o \"{}\"".format(source,result)
     # os.system(command)
     run(command,shell=True)
@@ -59,8 +59,7 @@ def _is_png_with_stream(file):
 
 
 if __name__ == "__main__":
-    s = "D:/Download/qwe.svg"
-    d = s+".webp"
-    #_convert(s)
-    #print(_is_png_with_stream(s))
-    _convert(s)
+    s = "D:/Download/TI20190831093249.png"
+    d = s+"222222222.png"
+    #compression(s,d,True)
+    print(all(ord(c) < 128 for c in s))
