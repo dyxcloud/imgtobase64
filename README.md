@@ -2,6 +2,9 @@
 
 将本地或web图片压缩并转为base64图片链接
 
+下载:
+[imgtobase64_v0.4_windows.zip](https://github.com/dyxcloud/imgtobase64/releases/download/0.4/imgtobase64_v0.4_windows.zip)
+
 
 
 imgtobase64.exe启动程序
@@ -11,11 +14,6 @@ imgtobase64.exe启动程序
 输入url点击转换, 成功后结果自动复制到系统剪贴板
 
 ![](http://dyxmarkdown-1258036571.cos.ap-beijing.myqcloud.com/mdimg/947d6c98ffaa98f847c3c4771dcf1c71c30b2ce5.png)
-
-
-
-下载:
-[imgtobase64_v0.4_windows.zip](https://github.com/dyxcloud/imgtobase64/releases/download/0.4/imgtobase64_v0.4_windows.zip)
 
 
 
