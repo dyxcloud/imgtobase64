@@ -61,7 +61,7 @@ def work_url(url,index=0,ifauto=1,with_md=0):
         downloader.download_by_bytes(bytes,source_path)
         is_to_png = index==2
         if is_to_png:
-            #先判断source路径是否是acsii
+            #先判断source路径是否是ascii
             is_ascii = all(ord(c) < 128 for c in source_path)
             if not is_ascii:
                 new_source = psworkspace+str(int(time.time()))+"temp.png"
@@ -95,7 +95,7 @@ def work_file(source_path,index=0,ifauto=1,with_md=0):
     else:
         is_to_png = index==2
         if is_to_png:
-            #先判断source路径是否是acsii
+            #先判断source路径是否是ascii
             is_ascii = all(ord(c) < 128 for c in source_path)
             if not is_ascii:
                 new_source = psworkspace+str(int(time.time()))+"temp.png"
