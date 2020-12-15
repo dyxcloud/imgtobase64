@@ -1,10 +1,13 @@
 import re
-import urllib.request
+from urllib import request
 
 import mytool
 import imagemapping
 
 
+httpproxy_handler = request.ProxyHandler({})
+opener = request.build_opener(httpproxy_handler)
+request.install_opener(opener)
 
 def _get_name_from_url(url,contenttype):
     #文件名
@@ -24,8 +27,8 @@ def _get_name_from_url(url,contenttype):
     return name+ex
 
 def get_response_imgname(img_url):
-    request = urllib.request.Request(img_url)
-    response = urllib.request.urlopen(request)
+    req = request.Request(img_url)
+    response = request.urlopen(req)
     if (response.getcode() == 200):
         contenttype = response.headers['Content-Type']
         img_name = _get_name_from_url(img_url,contenttype)
@@ -42,12 +45,17 @@ def download_img(img_url):
     '''下载图片'''
     response,img_name = get_response_imgname(img_url)
     filename = mytool.psworkspace + img_name
-    download_by_bytes(response,filename)
+    download_by_bytes(response.read(),filename)
     return img_name
 
 
 if __name__ == "__main__":
-    name = _get_name_from_url("https://upload-images.jianshu.io/upload_images/5831473-8898ffb67b096b56.png","")
-    print(name)
+    img_link = "https://upload-images.jianshu.io/upload_images/5831473-8898ffb67b096b56.png"
+    file_name = mytool.psworkspace+"qwe.png"
+    #name = _get_name_from_url(img_link,"")
+    #print(name)
     # print(imagemapping.content_types.values)
+    response,imgname = get_response_imgname(img_link)
+    bytes = response.read()
+    download_by_bytes(bytes,file_name)
     
