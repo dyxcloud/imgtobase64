@@ -3,7 +3,7 @@
 将本地或web图片压缩并转为base64图片链接
 
 下载:
-[imgtobase64_v0.4_windows.zip](https://github.com/dyxcloud/imgtobase64/releases/download/0.4/imgtobase64_v0.4_windows.zip)
+[imgtobase64_v0.5_windows.zip](https://github.com/dyxcloud/imgtobase64/releases/download/0.5/imgtobase64_v0.5_windows.zip)
 
 
 
