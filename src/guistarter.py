@@ -1,14 +1,12 @@
 import traceback
 from tkinter import Tk
 from tkinter import StringVar
-from tkinter import scrolledtext
 from tkinter import filedialog
-from tkinter.font import Font
 from tkinter import ttk
 from tkinter import messagebox
 
-import mytool
-import imagemapping
+from src import mytool, imagemapping
+
 
 class Application_ui(ttk.Frame):
     #这个类仅实现界面生成功能，具体事件处理代码在子类Application中。
@@ -76,7 +74,7 @@ class Application(Application_ui):
             ifauto = int(self.auto_compress.get())
             with_md = int(self.with_md.get())
 
-            self.result,showlen = mytool.work_file(local_file_path,checkindex,ifauto,with_md)
+            self.result,showlen = mytool.work_file(local_file_path, checkindex, ifauto, with_md)
             if len(self.result)>50:
                 addToClipBoard(self.result)
                 self.copytext.set("点击复制, "+showlen)
@@ -97,7 +95,7 @@ class Application(Application_ui):
             if len(dataurl)==0:
                 return
 
-            self.result,showlen = mytool.work_url(dataurl,checkindex,ifauto,with_md)
+            self.result,showlen = mytool.work_url(dataurl, checkindex, ifauto, with_md)
             if len(self.result)>50:
                 addToClipBoard(self.result)
                 self.copytext.set("点击复制, "+showlen)
@@ -105,7 +103,7 @@ class Application(Application_ui):
                 self.copytext.set("fail!")
         except:
             messagebox.showinfo(title='error',message= traceback.format_exc())
-    
+
     def docopy(self, even=None):
         addToClipBoard(self.result)
 
@@ -120,7 +118,12 @@ def addToClipBoard(text):
         r.update()
         r.destroy()
 
-if __name__ == "__main__":
+
+def run_gui():
     top = Tk()
     Application(top).mainloop()
     # top.destroy()
+
+
+if __name__ == "__main__":
+    run_gui()
