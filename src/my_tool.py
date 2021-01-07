@@ -6,7 +6,7 @@ from base64 import b64encode
 
 from src import downloader, image_mapping, size_reduce
 
-psworkspace = r"./wowrkspace/"
+psworkspace = r"../wowrkspace/"
 psresult = psworkspace + "result/"
 #初始化工作目录
 if not os.path.exists(psresult):
