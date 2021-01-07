@@ -1,9 +1,7 @@
 import re
 from urllib import request
 
-import mytool
-import imagemapping
-
+from src import mytool, imagemapping
 
 httpproxy_handler = request.ProxyHandler({})
 opener = request.build_opener(httpproxy_handler)
@@ -51,11 +49,10 @@ def download_img(img_url):
 
 if __name__ == "__main__":
     img_link = "https://upload-images.jianshu.io/upload_images/5831473-8898ffb67b096b56.png"
-    file_name = mytool.psworkspace+"qwe.png"
+    file_name = mytool.psworkspace + "qwe.png"
     #name = _get_name_from_url(img_link,"")
     #print(name)
     # print(imagemapping.content_types.values)
     response,imgname = get_response_imgname(img_link)
     bytes = response.read()
     download_by_bytes(bytes,file_name)
-    

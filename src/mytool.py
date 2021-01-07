@@ -4,9 +4,7 @@ import time
 
 from base64 import b64encode
 
-import sizereduce
-import downloader
-import imagemapping
+from src import downloader, imagemapping, sizereduce
 
 psworkspace = r"./wowrkspace/"
 psresult = psworkspace + "result/"
@@ -58,7 +56,7 @@ def work_url(url,index=0,ifauto=1,with_md=0):
         showlen = "nochange {}k".format(s)
     else:
         source_path = psworkspace+imgname
-        downloader.download_by_bytes(bytes,source_path)
+        downloader.download_by_bytes(bytes, source_path)
         is_to_png = index==2
         if is_to_png:
             #先判断source路径是否是ascii
@@ -73,7 +71,7 @@ def work_url(url,index=0,ifauto=1,with_md=0):
                 result_path = psresult+filename_change(imgname,"png")
         else:
             result_path = psresult+filename_change(imgname,"webp")
-        sizereduce.compression(source_path,result_path,is_to_png)
+        sizereduce.compression(source_path, result_path, is_to_png)
         result_line = dobase64(result_path)
         r = "{:.2f}".format(os.path.getsize(result_path)/1024.0)
         showlen = "img_size {}k to {}k".format(s,r)
@@ -106,7 +104,7 @@ def work_file(source_path,index=0,ifauto=1,with_md=0):
                 result_path = psresult+filename_change(imgname,"png")
         else:
             result_path = psresult+filename_change(imgname,"webp")
-        sizereduce.compression(source_path,result_path,is_to_png)
+        sizereduce.compression(source_path, result_path, is_to_png)
         result_line = dobase64(result_path)
         r = "{:.2f}".format(os.path.getsize(result_path)/1024.0)
         showlen = "img_size {}k to {}k".format(s,r)

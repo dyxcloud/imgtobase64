@@ -1,8 +1,8 @@
 import os
 from subprocess import run
 
-import mytool
-import imagemapping
+from src import mytool, imagemapping
+
 
 def compression(source, result,is_to_png = False):
     if not os.path.isfile(source):
@@ -36,7 +36,7 @@ def _convert(source):
     if source.endswith(".png"):
         result = source[0:-4]+"_1.png"
     else:
-        result = mytool.filename_change(source,"png")
+        result = mytool.filename_change(source, "png")
     if not os.path.isfile(result):
         raise FileNotFoundError("转换至png错误"+result)
     return result
