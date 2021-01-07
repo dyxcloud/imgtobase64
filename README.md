@@ -1,4 +1,4 @@
-# imgtobase64
+## imgtobase64
 
 将本地或web图片压缩并转为base64图片链接
 
@@ -37,3 +37,12 @@ imgtobase64.exe启动程序
 ## TODO
 
 1. 转换参数可配置
+
+
+
+## 程序打包命令
+
+```bash
+pyinstaller -w imgtobase64.py
+```
+
