@@ -5,7 +5,7 @@ from tkinter import filedialog
 from tkinter import ttk
 from tkinter import messagebox
 
-from src import mytool, imagemapping
+from src import my_tool, image_mapping
 
 
 class Application_ui(ttk.Frame):
@@ -65,7 +65,7 @@ class Application(Application_ui):
 
     def doupload(self, event=None):
         try:
-            local_file_path = filedialog.askopenfilename(title='上传', filetypes=[('image', imagemapping.selectfiletypes), ('All Files', '*')])
+            local_file_path = filedialog.askopenfilename(title='上传', filetypes=[('image', image_mapping.selectfiletypes), ('All Files', '*')])
             if local_file_path=="":
                 return
             self.copytext.set("making...")
@@ -74,7 +74,7 @@ class Application(Application_ui):
             ifauto = int(self.auto_compress.get())
             with_md = int(self.with_md.get())
 
-            self.result,showlen = mytool.work_file(local_file_path, checkindex, ifauto, with_md)
+            self.result,showlen = my_tool.work_file(local_file_path, checkindex, ifauto, with_md)
             if len(self.result)>50:
                 addToClipBoard(self.result)
                 self.copytext.set("点击复制, "+showlen)
@@ -95,7 +95,7 @@ class Application(Application_ui):
             if len(dataurl)==0:
                 return
 
-            self.result,showlen = mytool.work_url(dataurl, checkindex, ifauto, with_md)
+            self.result,showlen = my_tool.work_url(dataurl, checkindex, ifauto, with_md)
             if len(self.result)>50:
                 addToClipBoard(self.result)
                 self.copytext.set("点击复制, "+showlen)

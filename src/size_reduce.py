@@ -1,7 +1,7 @@
 import os
 from subprocess import run
 
-from src import mytool, imagemapping
+from src import my_tool, image_mapping
 
 
 def compression(source, result,is_to_png = False):
@@ -36,7 +36,7 @@ def _convert(source):
     if source.endswith(".png"):
         result = source[0:-4]+"_1.png"
     else:
-        result = mytool.filename_change(source, "png")
+        result = my_tool.filename_change(source, "png")
     if not os.path.isfile(result):
         raise FileNotFoundError("转换至png错误"+result)
     return result
@@ -55,7 +55,7 @@ def _is_png_with_stream(file):
     binfile.close()
     #str = ''.join(['%02X' % b for b in bytes])
     str = ''.join(['{:02X}'.format(b) for b in bytes])
-    return str.startswith(imagemapping.file_header_png)
+    return str.startswith(image_mapping.file_header_png)
 
 
 if __name__ == "__main__":

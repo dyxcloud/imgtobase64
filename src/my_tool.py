@@ -4,7 +4,7 @@ import time
 
 from base64 import b64encode
 
-from src import downloader, imagemapping, sizereduce
+from src import downloader, image_mapping, size_reduce
 
 psworkspace = r"./wowrkspace/"
 psresult = psworkspace + "result/"
@@ -33,7 +33,7 @@ def dobase64(filename):
 def _base64_getheader(filename):
     '''获取base64头'''
     ex = os.path.splitext(filename)[1]
-    return imagemapping.base64headers[ex]
+    return image_mapping.base64headers[ex]
 
 def _with_md(result_line,imgname,url=None):
     '''为base64结果添加md格式'''
@@ -71,7 +71,7 @@ def work_url(url,index=0,ifauto=1,with_md=0):
                 result_path = psresult+filename_change(imgname,"png")
         else:
             result_path = psresult+filename_change(imgname,"webp")
-        sizereduce.compression(source_path, result_path, is_to_png)
+        size_reduce.compression(source_path, result_path, is_to_png)
         result_line = dobase64(result_path)
         r = "{:.2f}".format(os.path.getsize(result_path)/1024.0)
         showlen = "img_size {}k to {}k".format(s,r)
@@ -104,7 +104,7 @@ def work_file(source_path,index=0,ifauto=1,with_md=0):
                 result_path = psresult+filename_change(imgname,"png")
         else:
             result_path = psresult+filename_change(imgname,"webp")
-        sizereduce.compression(source_path, result_path, is_to_png)
+        size_reduce.compression(source_path, result_path, is_to_png)
         result_line = dobase64(result_path)
         r = "{:.2f}".format(os.path.getsize(result_path)/1024.0)
         showlen = "img_size {}k to {}k".format(s,r)
