@@ -47,14 +47,14 @@ def download_by_bytes(byte, filename):
 def download_img(img_url):
     """下载图片"""
     response, img_name = get_response_img_name(img_url)
-    filename = my_tool.psworkspace + img_name
+    filename = my_tool.ps_workspace + img_name
     download_by_bytes(response.read(), filename)
     return img_name
 
 
 def main():
     img_link = "https://upload-images.jianshu.io/upload_images/5831473-8898ffb67b096b56.png"
-    file_name = my_tool.psworkspace + "qwe.png"
+    file_name = my_tool.ps_workspace + "qwe.png"
     response, img_name = get_response_img_name(img_link)
     byte_data = response.read()
     download_by_bytes(byte_data, file_name)
