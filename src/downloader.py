@@ -3,56 +3,62 @@ from urllib import request
 
 from src import my_tool, image_mapping
 
-httpproxy_handler = request.ProxyHandler({})
-opener = request.build_opener(httpproxy_handler)
+http_proxy_handler = request.ProxyHandler({})
+opener = request.build_opener(http_proxy_handler)
 request.install_opener(opener)
 
-def _get_name_from_url(url,contenttype):
-    #文件名
+
+def _get_name_from_url(url, content_type):
+    # 文件名
     pattern = re.compile(r"\?.*")
-    name = re.sub(pattern,"",url)
+    name = re.sub(pattern, "", url)
     # end = url.index("?")-1
     # name = url[:end]
     name = name.rpartition("/")[2]
     # 根据content type 判断文件类型
-    if contenttype in image_mapping.content_types:
-        ex = image_mapping.content_types[contenttype]
+    ex = ".jpg"  # 默认类型
+    if content_type in image_mapping.content_types:
+        ex = image_mapping.content_types[content_type]
     else:
-        for type in set(image_mapping.content_types.values()):
-            if type in url:
-                ex = type
+        for type_str in set(image_mapping.content_types.values()):
+            if type_str in url:
+                ex = type_str
                 break
-    return name+ex
+    return name + ex
 
-def get_response_imgname(img_url):
+
+def get_response_img_name(img_url):
     req = request.Request(img_url)
     response = request.urlopen(req)
-    if (response.getcode() == 200):
-        contenttype = response.headers['Content-Type']
-        img_name = _get_name_from_url(img_url,contenttype)
-        return response,img_name
+    if response.getcode() == 200:
+        content_type = response.headers['Content-Type']
+        img_name = _get_name_from_url(img_url, content_type)
+        return response, img_name
     else:
         print("request fail!")
-        return None,None
+        return None, None
 
-def download_by_bytes(bytes,filename):
+
+def download_by_bytes(byte, filename):
     with open(filename, "wb") as f:
-        f.write(bytes)
+        f.write(byte)
+
 
 def download_img(img_url):
-    '''下载图片'''
-    response,img_name = get_response_imgname(img_url)
+    """下载图片"""
+    response, img_name = get_response_img_name(img_url)
     filename = my_tool.psworkspace + img_name
-    download_by_bytes(response.read(),filename)
+    download_by_bytes(response.read(), filename)
     return img_name
 
 
-if __name__ == "__main__":
+def main():
     img_link = "https://upload-images.jianshu.io/upload_images/5831473-8898ffb67b096b56.png"
     file_name = my_tool.psworkspace + "qwe.png"
-    #name = _get_name_from_url(img_link,"")
-    #print(name)
-    # print(imagemapping.content_types.values)
-    response,imgname = get_response_imgname(img_link)
-    bytes = response.read()
-    download_by_bytes(bytes,file_name)
+    response, img_name = get_response_img_name(img_link)
+    byte_data = response.read()
+    download_by_bytes(byte_data, file_name)
+
+
+if __name__ == "__main__":
+    main()

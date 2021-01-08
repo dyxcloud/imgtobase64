@@ -1,7 +1,8 @@
 from pywinauto.application import Application
 
+
 def dops_toweb():
-    '''操作photoshop'''
+    """操作photoshop"""
     app = Application().connect(class_name="Photoshop", title="Adobe Photoshop CC 2019")
     win = app.top_window()
     win.type_keys("%f")
@@ -9,6 +10,7 @@ def dops_toweb():
     win.type_keys("{ENTER}")
     win.minimize()
     # print("done!")
+
 
 '''def _tryfile(filepath):
     #自旋10秒,判断文件是否导出完毕
@@ -38,9 +40,14 @@ def dops_toweb():
     #     except IOError:
     #         print("File is not accessible")'''
 
-if __name__ == "__main__":
+
+def main():
     app = Application().connect(class_name="Photoshop", title="Adobe Photoshop CC 2019")
     win = app.top_window()
     win.type_keys("^o")
     # win.minimize()
     print()
+
+
+if __name__ == "__main__":
+    main()
